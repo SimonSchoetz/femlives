@@ -1,13 +1,13 @@
 
+
 # Get the current branch name
 BRANCH_NAME=$(git symbolic-ref --short HEAD)
 
-# Extract the type (before '/') and the ticket ID inside parentheses (if present)
-# If no ticket ID is found, it will default to just "type:"
-BRANCH_PREFIX=$(echo "$BRANCH_NAME" | sed -E 's|([^/]+)(/\(([A-Z]+-[0-9]+)\))?.*|\1:(\3)|')
+# Extract the type (before the first '/') and the ticket ID (between the first and second '/') if present
+BRANCH_PREFIX=$(echo "$BRANCH_NAME" | sed -E 's|([^/]+)(/([^/]+))?.*|\1: \3|')
 
 # If no ticket ID exists, just use "type:"
-BRANCH_PREFIX=$(echo "$BRANCH_PREFIX" | sed 's/:\(\)/:/')
+BRANCH_PREFIX=$(echo "$BRANCH_PREFIX" | sed 's/: $/:/')
 
 # If the branch matches the pattern, prepend it to the commit message
 if [ -n "$BRANCH_PREFIX" ]; then
