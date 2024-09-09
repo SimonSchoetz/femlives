@@ -12,6 +12,12 @@ Following the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0
 feat:(FL-2) set up github
 ```
 
+The commit messages will be automatically prefixed when the branch naming follows the convention `<type>[optional scope]/(<ticket-id>)-<description>`. Here is an example:
+
+```text
+feat/(FL-10)-automatic-commit-msg-prefix
+```
+
 ---
 
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
