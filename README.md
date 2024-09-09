@@ -2,14 +2,24 @@
 
 A platform dedicated to women's health
 
+## Setup
+
+- run `npm i`
+
 ## Conventions
 
 ### Version control workflow
 
-Following the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) guidelines, we want to prefix our commits with e.g. `feat`, `fix`, ect. Additionally, we want to tie the ticket id of the task to the name following the pattern `<type>[optional scope]:(<ticket-id>) <description>` With the current usage of Jira, a commit message could look like this:
+Following the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) guidelines, we prefix our commits with e.g. `feat`, `fix`, ect. Additionally, we tie the ticket id of the task to the name following the pattern `<type>[optional scope]:(<ticket-id>) <description>`. With the current usage of Jira, a commit message could look like this:
 
 ```text
 feat:(FL-2) set up github
+```
+
+The commit messages will be automatically prefixed when the branch naming follows the convention `<type>[optional scope]/(<ticket-id>)-<description>`. Here is an example:
+
+```text
+feat/(FL-10)-automatic-commit-msg-prefix
 ```
 
 ---
