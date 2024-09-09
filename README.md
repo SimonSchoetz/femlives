@@ -10,17 +10,19 @@ A platform dedicated to women's health
 
 ### Version control workflow
 
-Following the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) guidelines, we prefix our commits with e.g. `feat`, `fix`, ect. Additionally, we tie the ticket id of the task to the name following the pattern `<type>[optional scope]:(<ticket-id>) <description>`. With the current usage of Jira, a commit message could look like this:
+Following the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) guidelines, we prefix our commits with e.g. `feat`, `fix`, ect. Additionally, we tie the ticket id of the task to the name following the pattern `<type>[optional scope]: <ticket-id> <description>`. With the current usage of Jira, a commit message could look like this:
 
 ```text
-feat:(FL-2) set up github
+feat: FL-2 set up github
 ```
 
-The commit messages will be automatically prefixed when the branch naming follows the convention `<type>[optional scope]/(<ticket-id>)-<description>`. Here is an example:
+The commit messages will be automatically prefixed based on the branch name by using the pattern `<type>[optional scope]/<ticket-id>/<description>`, i. e.:
 
 ```text
-feat/(FL-10)-automatic-commit-msg-prefix
+feat/FL-10/automatic-commit-msg-prefix
 ```
+
+You can also create branches the classic way without the `ticket-id`. In this case, only the `type` will be prefixed.
 
 ---
 
