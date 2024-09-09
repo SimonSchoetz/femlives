@@ -31,6 +31,6 @@
     "typescript-eslint": "^8.5.0"
   },
   "lint-staged": {
-    "src/**/*.{ts,tsx}": "eslint"
+    "*": "eslint"
   }
 }
