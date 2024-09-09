@@ -14,6 +14,6 @@ Please keep the PR descriptions concise. Feel free to add section and delete unu
 
 ## Checklist
 
-[ ] 🙅‍♀️ No leftover console.logs
-[ ] 🦾 Sufficient tests, e. g. unit test
-[ ] 🫶 Documentation updated where necessary
+- [ ] 🙅‍♀️ No leftover console.logs
+- [ ] 🦾 Sufficient tests, e. g. unit test
+- [ ] 🫶 Documentation updated where necessary
