@@ -8,16 +8,23 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout the repository (use actions/checkout@v4)
+      # Checkout the repository
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # Extract Node.js version from package.json
+      # Ensure jq is installed
+      - name: Install jq
+        run: sudo apt-get install -y jq
+
+      # Extract Node.js version from package.json, fallback to '16' if not found
       - name: Get Node.js version
         id: node_version
-        run: echo "NODE_VERSION=$(jq -r '.engines.node' package.json)" >> $GITHUB_ENV
+        run: |
+          NODE_VERSION=$(jq -r '.engines.node // "20"' package.json)
+          echo "Using Node.js version $NODE_VERSION"
+          echo "NODE_VERSION=$NODE_VERSION" >> $GITHUB_ENV
 
-      # Set up Node.js using the extracted version (use actions/setup-node@v4)
+      # Set up Node.js using the extracted or default version
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
