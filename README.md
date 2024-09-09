@@ -1,6 +1,18 @@
-# femlives
+# Femlives
 
 A platform dedicated to women's health
+
+## Conventions
+
+### Version control workflow
+
+Following the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) guidelines, we want to prefix our commits with e.g. `feat`, `fix`, ect. Additionally, we want to tie the ticket id of the task to the name following the pattern `<type>[optional scope]:(<ticket-id>) <description>` With the current usage of Jira, a commit message could look like this:
+
+```bash
+feat:(FL-2) set up github
+```
+
+---
 
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
