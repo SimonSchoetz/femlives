@@ -1,0 +1,43 @@
+name: Lint and Test
+
+on:
+  pull_request:
+
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Ensure jq is installed
+      - name: Install jq
+        run: sudo apt-get install -y jq
+
+      # Extract Node.js version from package.json, fallback to '16' if not found
+      - name: Get Node.js version
+        id: node_version
+        run: |
+          NODE_VERSION=$(jq -r '.engines.node // "20"' package.json)
+          echo "Using Node.js version $NODE_VERSION"
+          echo "NODE_VERSION=$NODE_VERSION" >> $GITHUB_ENV
+
+      # Set up Node.js using the extracted or default version
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      # Install dependencies
+      - name: Install dependencies
+        run: npm install --legacy-peer-deps
+
+      # Run lint
+      - name: Run lint
+        run: npm run lint
+
+      # Run tests
+      - name: Run tests
+        run: npm run test
