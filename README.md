@@ -6,6 +6,13 @@ A platform dedicated to women's health
 
 - run `npm i`
 
+### linting
+
+We have 2 lint checks enforced by hooks
+
+1. pre-commit: rules can be adjusted here [here](eslint.config.mjs)
+2. pre-push: rules can be adjusted here [here](.eslintrc.json)
+
 ## Conventions
 
 ### Version control workflow
