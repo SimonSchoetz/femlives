@@ -17,3 +17,4 @@ Please keep the PR descriptions concise. Feel free to add section and delete unu
 - [ ] 🙅‍♀️ No leftover console.logs
 - [ ] 🦾 Sufficient tests, e. g. unit test
 - [ ] 🫶 Documentation updated where necessary
+- [ ] 🧠 Left over TODOs are marked with a url to the ticket
