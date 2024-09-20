@@ -19,6 +19,7 @@ export default [
     rules: {
       '@typescript-eslint/no-unused-vars': 'warn',
       'custom-rules/sort-enums': 'error',
+      quotes: ['error', 'single', { allowTemplateLiterals: true }],
     },
   },
 ];
