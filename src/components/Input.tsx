@@ -1,16 +1,13 @@
 import { DetailedHTMLProps, InputHTMLAttributes } from 'react';
 import ConditionWrapper from './ConditionWrapper';
+import { FCProps } from '@/types/app';
 
 type InputProps = DetailedHTMLProps<
   InputHTMLAttributes<HTMLInputElement>,
   HTMLInputElement
 > & { label?: string; errorMsg?: string };
 
-const Input: React.FC<Readonly<InputProps>> = ({
-  label,
-  errorMsg,
-  ...inputProps
-}) => {
+const Input: FCProps<InputProps> = ({ label, errorMsg, ...inputProps }) => {
   return (
     <div>
       <div className='flex flex-col'>
