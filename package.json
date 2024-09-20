@@ -12,6 +12,7 @@
     "test:watch": "jest --watch"
   },
   "dependencies": {
+    "convex": "^1.16.1",
     "next": "14.2.8",
     "react": "^18",
     "react-dom": "^18"
