@@ -1,4 +1,5 @@
 import { DetailedHTMLProps, InputHTMLAttributes } from 'react';
+import ConditionWrapper from './ConditionWrapper';
 
 type InputProps = DetailedHTMLProps<
   InputHTMLAttributes<HTMLInputElement>,
@@ -13,11 +14,12 @@ const Input: React.FC<Readonly<InputProps>> = ({
   return (
     <div>
       <div className='flex flex-col'>
-        {!!label && (
+        <ConditionWrapper condition={!!label}>
           <label htmlFor='email' className='text-lg font-medium'>
             {label}
           </label>
-        )}
+        </ConditionWrapper>
+
         <input
           {...inputProps}
           className='p-2 border border-gray-300 rounded-md text-foreground bg-white 
@@ -26,7 +28,10 @@ const Input: React.FC<Readonly<InputProps>> = ({
                            hover:scale-105 hover:border-fl-primary'
         />
       </div>
-      {!!errorMsg && <p className='text-red-500 text-sm'>{errorMsg}</p>}
+
+      <ConditionWrapper condition={!!errorMsg}>
+        <p className='text-red-500 text-sm'>{errorMsg}</p>
+      </ConditionWrapper>
     </div>
   );
 };
