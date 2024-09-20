@@ -1,7 +1,8 @@
 import { DbTable } from '@/enums';
-import { defineSchema, defineTable } from 'convex/server';
+import { defineSchema } from 'convex/server';
 import { v } from 'convex/values';
+import { emailAddressesTable } from './tables';
 
 export default defineSchema({
-  [DbTable.EMAIL_ADDRESSES]: defineTable({ email: v.string() }),
+  [DbTable.EMAIL_ADDRESSES]: emailAddressesTable,
 });
