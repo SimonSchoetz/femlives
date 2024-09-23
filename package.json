@@ -9,6 +9,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "db:logout": "npx convex logout",
+    "db:login": "npx convex login",
     "prepare": "husky",
     "test": "jest",
     "test:watch": "jest --watch"
