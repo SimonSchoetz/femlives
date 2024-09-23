@@ -1,3 +1,5 @@
+'server only';
+
 import { parsedEnv } from '@/util/helper';
 import { ConvexHttpClient } from 'convex/browser';
 
