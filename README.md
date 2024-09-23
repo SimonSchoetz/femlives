@@ -6,6 +6,14 @@ A platform dedicated to women's health
 
 - run `npm i`
 
+### Convex setup
+
+- run `npm run db:login`
+- follow the instructions
+  - The device name doesn't really matter, just pick one that makes sense to you
+  - open the browser to continue
+  - Use the femlives github account for logging in
+
 ### linting
 
 We have 2 lint checks enforced by hooks
