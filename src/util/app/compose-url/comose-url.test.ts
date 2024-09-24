@@ -1,7 +1,8 @@
 import { Route } from '@/enums';
 import { composeUrl } from './compose-url';
+import { parsedEnv } from '@/util/helper';
 
-const baseRoute = process.env.HOST;
+const baseRoute = parsedEnv.HOST;
 
 describe('composeUrl', () => {
   it('should return a string', () => {
@@ -9,7 +10,6 @@ describe('composeUrl', () => {
   });
 
   it('should return url including baseurl', () => {
-    //@ts-expect-error todo: https://femlives.atlassian.net/jira/software/projects/FL/boards/1/backlog?epics=visible&selectedIssue=FL-17
     expect(composeUrl(Route.HOME).includes(baseRoute)).toBe(true);
   });
 
