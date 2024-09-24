@@ -8,16 +8,13 @@ import {
   Section,
 } from '@react-email/components';
 
-type Props = {
-  name?: string;
-};
 //Todo: https://femlives.atlassian.net/jira/software/projects/FL/boards/1/backlog?epics=visible&selectedIssue=FL-45
-const EmailSignUpVerificationTemplate: FCProps<Props> = ({ name }) => {
+const EmailSignUpVerificationTemplate: FCProps = () => {
   return (
     <Html lang='en' dir='ltr'>
       <Head>
-        <title>Thanks for signing up{name ? `, ${name}` : ''}!</title>
-        <Heading>Thanks for signing up{name ? `, ${name}` : ''}!</Heading>
+        <title>Thanks for signing up!</title>
+        <Heading>Thanks for signing up!</Heading>
       </Head>
       <Body>
         <Container>

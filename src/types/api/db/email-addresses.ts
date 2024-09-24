@@ -13,9 +13,9 @@ export type EmailAddressDto = z.infer<typeof zEmailAddressDto>;
 /**
  * should only be used in app
  */
-export type EmailAddress = z.infer<typeof zAppEmailAddressData>;
+export type AppEmailAddressData = z.infer<typeof zAppEmailAddressData>;
 
 /**
  * should only be used in db
  */
-export type DbEmailAddress = z.infer<typeof zDbEmailAddressData>;
+export type DbEmailAddressData = z.infer<typeof zDbEmailAddressData>;
