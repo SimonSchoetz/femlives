@@ -13,7 +13,7 @@ export const createEmailAddress = zMutation({
   output: zid(DbTable.EMAIL_ADDRESSES),
   handler: async (ctx, args) => {
     if (await emailAlreadyInUse(ctx, args)) {
-      throw new ConvexError('Email already in use');
+      throw new ConvexError('Email must be unique');
     }
     return await ctx.db.insert(DbTable.EMAIL_ADDRESSES, args);
   },
