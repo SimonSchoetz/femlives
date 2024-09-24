@@ -30,7 +30,6 @@ export const submitEmailSignUp = async (
           },
         };
       }
-      throw new Error(error.message);
     }
     throw new Error(`Unknown error during sign up: "${error}"`);
   }
