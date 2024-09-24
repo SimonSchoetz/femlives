@@ -19,6 +19,22 @@ describe('Button component', () => {
     expect(handleClick).not.toHaveBeenCalled();
   });
 
+  it('Should be clickable when enabled', () => {
+    const handleClick = jest.fn();
+
+    render(
+      <Button buttonLabel='Click Me' onClick={handleClick} disabled={false} />
+    );
+
+    const buttonElement = screen.getByText('Click Me');
+
+    expect(buttonElement).not.toBeDisabled();
+
+    fireEvent.click(buttonElement);
+
+    expect(handleClick).toHaveBeenCalledTimes(1);
+  });
+
   it('Should display loading state and be unclickable', () => {
     const handleClick = jest.fn();
 
