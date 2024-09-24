@@ -1,9 +1,9 @@
 import { Route } from '@/enums';
+import { parsedEnv } from '@/util/helper';
 
 export const composeUrl = (subRoute: Route | string): string => {
   assertIsValidSubRoute(subRoute);
-  //todo: https://femlives.atlassian.net/jira/software/projects/FL/boards/1/backlog?epics=visible&selectedIssue=FL-17
-  return process.env.HOST + subRoute;
+  return parsedEnv.HOST + subRoute;
 };
 
 const assertIsValidSubRoute = (subRoute: Route | string): void => {
