@@ -4,44 +4,76 @@ on:
   pull_request:
 
 jobs:
-  lint-and-test:
+  setup:
     runs-on: ubuntu-latest
-
     steps:
-      # Checkout the repository
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # Ensure jq is installed
       - name: Install jq
         run: sudo apt-get install -y jq
 
-      # Extract Node.js version from package.json, fallback to '16' if not found
       - name: Get Node.js version
         id: node_version
         run: |
           NODE_VERSION=$(jq -r '.engines.node // "20"' package.json)
           echo "Using Node.js version $NODE_VERSION"
-          echo "NODE_VERSION=$NODE_VERSION" >> $GITHUB_ENV
+          echo "NODE_VERSION=$NODE_VERSION" >> $GITHUB_OUTPUT
 
-      # Set up Node.js using the extracted or default version
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ env.NODE_VERSION }}
+          node-version: ${{ steps.node_version.outputs.NODE_VERSION }}
 
-      # Install dependencies
       - name: Install dependencies
         run: npm install --legacy-peer-deps
 
-      # Run lint
-      - name: Run lint
-        run: npm run lint
+      - name: Cache node modules
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.OS }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.OS }}-node-
 
-      # Run tests
-      - name: Run tests
-        run: npm run test
+  lint:
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ needs.setup.outputs.NODE_VERSION }}
+      - uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.OS }}-node-${{ hashFiles('**/package-lock.json') }}
+      - run: npm run lint
 
-      # Run build
-      - name: Run build
-        run: npm run build
+  test:
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ needs.setup.outputs.NODE_VERSION }}
+      - uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.OS }}-node-${{ hashFiles('**/package-lock.json') }}
+      - run: npm run test
+
+  build:
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ needs.setup.outputs.NODE_VERSION }}
+      - uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.OS }}-node-${{ hashFiles('**/package-lock.json') }}
+      - run: npm run build
