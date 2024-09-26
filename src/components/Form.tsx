@@ -28,14 +28,9 @@ const getErrorMessage = <T extends FieldValues>(
   errors: FieldErrors<T>,
   fieldName: Path<T>
 ): string | undefined => {
-  const error = errors[fieldName]?.message;
-
-  if (typeof error === 'string') {
-    return error;
-  }
-
-  return undefined;
+  return errors[fieldName]?.message as string | undefined;
 };
+
 const Form = <T extends FieldValues>({
   onSubmit,
   schema,
@@ -82,6 +77,7 @@ const Form = <T extends FieldValues>({
         type='submit'
         buttonLabel={submitButtonLabel}
         loading={isSubmitting}
+        disabled={isSubmitting} // Prevent multiple submissions
       />
     </form>
   );
