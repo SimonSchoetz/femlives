@@ -1,3 +1,4 @@
+import { Route } from '@/enums';
 import Link from 'next/link';
 import { DetailedHTMLProps, LinkHTMLAttributes } from 'react';
 
@@ -11,19 +12,26 @@ export enum AppLinkStyle {
   LIGHT = 'light',
 }
 
+type HrefObject = {
+  pathname: Route;
+  query: Record<string, string>;
+};
+
 type Props = DetailedHTMLProps<
   LinkHTMLAttributes<HTMLAnchorElement>,
   HTMLAnchorElement
 > & {
-  title: string;
-  href: string;
+  label: string;
+  internalRoute?: Route | HrefObject;
+  externalUrl?: string;
   layout?: AppLinkLayout;
   style?: AppLinkStyle;
 };
 
 const AppLink = ({
-  title,
-  href,
+  label,
+  internalRoute,
+  externalUrl,
   layout = AppLinkLayout.LINK,
   style = AppLinkStyle.LIGHT,
   ...props
@@ -31,15 +39,19 @@ const AppLink = ({
   const linkLayout = getLayout(layout);
   const linkStyle = getStyle(style);
   const sharedStyles = 'text-xl transition';
+
+  const href = internalRoute ? internalRoute : externalUrl;
+
   return (
     <Link
-      href={href}
+      href={href ?? '#'}
       className={`${
         props.className ?? ''
       } ${sharedStyles} ${linkLayout} ${linkStyle}`}
+      target={externalUrl ? '_blank' : undefined}
       {...props}
     >
-      {title}
+      {label}
     </Link>
   );
 };
