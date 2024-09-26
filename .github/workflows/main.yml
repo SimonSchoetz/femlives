@@ -4,63 +4,44 @@ on:
   pull_request:
 
 jobs:
-  setup:
+  lint-and-test:
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '20' # or use .nvmrc
-      - name: Cache dependencies
-        uses: actions/cache@v3
-        with:
-          path: ~/.npm
-          key: ${{ runner.OS }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.OS }}-node-
-      - run: npm ci --prefer-offline --no-audit
 
-  lint:
-    needs: setup
-    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '20' # or use .nvmrc
-      - uses: actions/cache@v3
-        with:
-          path: ~/.npm
-          key: ${{ runner.OS }}-node-${{ hashFiles('**/package-lock.json') }}
-      - run: npm ci --prefer-offline --no-audit
-      - run: npm run lint
+      # Checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-  test:
-    needs: setup
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '20' # or use .nvmrc
-      - uses: actions/cache@v3
-        with:
-          path: ~/.npm
-          key: ${{ runner.OS }}-node-${{ hashFiles('**/package-lock.json') }}
-      - run: npm ci --prefer-offline --no-audit
-      - run: npm test
+      # Ensure jq is installed
+      - name: Install jq
+        run: sudo apt-get install -y jq
 
-  build:
-    needs: setup
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      # Extract Node.js version from package.json, fallback to '16' if not found
+      - name: Get Node.js version
+        id: node_version
+        run: |
+          NODE_VERSION=$(jq -r '.engines.node // "20"' package.json)
+          echo "Using Node.js version $NODE_VERSION"
+          echo "NODE_VERSION=$NODE_VERSION" >> $GITHUB_ENV
+
+      # Set up Node.js using the extracted or default version
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: '20' # or use .nvmrc
-      - uses: actions/cache@v3
-        with:
-          path: ~/.npm
-          key: ${{ runner.OS }}-node-${{ hashFiles('**/package-lock.json') }}
-      - run: npm ci --prefer-offline --no-audit
-      - run: npm run build
+          node-version: ${{ env.NODE_VERSION }}
+
+      # Install dependencies
+      - name: Install dependencies
+        run: npm install --legacy-peer-deps
+
+      # Run lint
+      - name: Run lint
+        run: npm run lint
+
+      # Run tests
+      - name: Run tests
+        run: npm run test
+
+      # Run build
+      - name: Run build
+        run: npm run build
