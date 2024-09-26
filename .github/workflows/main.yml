@@ -7,43 +7,18 @@ jobs:
   setup:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Install jq
-        run: sudo apt-get install -y jq
-
-      - name: Get Node.js version
-        id: node_version
-        run: |
-          NODE_VERSION=$(jq -r '.engines.node // "20"' package.json)
-          echo "Using Node.js version $NODE_VERSION"
-          echo "NODE_VERSION=$NODE_VERSION" >> $GITHUB_OUTPUT
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: ${{ steps.node_version.outputs.NODE_VERSION }}
-
-      - name: Cache node modules
+          node-version: '20' # or use .nvmrc
+      - name: Cache dependencies
         uses: actions/cache@v3
-        id: cache-npm
         with:
-          path: node_modules
+          path: ~/.npm
           key: ${{ runner.OS }}-node-${{ hashFiles('**/package-lock.json') }}
-
-      - name: Install dependencies
-        if: steps.cache-npm.outputs.cache-hit != 'true'
-        run: npm ci --legacy-peer-deps
-
-      - name: Upload node_modules
-        uses: actions/upload-artifact@v3
-        with:
-          name: node_modules
-          path: node_modules
-
-    outputs:
-      node_version: ${{ steps.node_version.outputs.NODE_VERSION }}
+          restore-keys: |
+            ${{ runner.OS }}-node-
+      - run: npm ci --prefer-offline --no-audit
 
   lint:
     needs: setup
@@ -52,12 +27,12 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: ${{ needs.setup.outputs.node_version }}
-      - name: Download node_modules
-        uses: actions/download-artifact@v3
+          node-version: '20' # or use .nvmrc
+      - uses: actions/cache@v3
         with:
-          name: node_modules
-          path: node_modules
+          path: ~/.npm
+          key: ${{ runner.OS }}-node-${{ hashFiles('**/package-lock.json') }}
+      - run: npm ci --prefer-offline --no-audit
       - run: npm run lint
 
   test:
@@ -67,13 +42,13 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: ${{ needs.setup.outputs.node_version }}
-      - name: Download node_modules
-        uses: actions/download-artifact@v3
+          node-version: '20' # or use .nvmrc
+      - uses: actions/cache@v3
         with:
-          name: node_modules
-          path: node_modules
-      - run: npm run test
+          path: ~/.npm
+          key: ${{ runner.OS }}-node-${{ hashFiles('**/package-lock.json') }}
+      - run: npm ci --prefer-offline --no-audit
+      - run: npm test
 
   build:
     needs: setup
@@ -82,10 +57,10 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: ${{ needs.setup.outputs.node_version }}
-      - name: Download node_modules
-        uses: actions/download-artifact@v3
+          node-version: '20' # or use .nvmrc
+      - uses: actions/cache@v3
         with:
-          name: node_modules
-          path: node_modules
+          path: ~/.npm
+          key: ${{ runner.OS }}-node-${{ hashFiles('**/package-lock.json') }}
+      - run: npm ci --prefer-offline --no-audit
       - run: npm run build
