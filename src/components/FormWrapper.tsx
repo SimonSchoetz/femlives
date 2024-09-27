@@ -2,31 +2,32 @@
 
 import React, { PropsWithChildren } from 'react';
 import { useForm, FieldValues } from 'react-hook-form';
-import { ZodSchema } from 'zod';
 import { Button } from './Button';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FormSubmitResponse } from '@/types/app';
 import { assertIsString } from '@/util/asserts';
+import { getFormValidator, ValidatorName } from '@/api/db/validators/util';
 
 type FormProps = PropsWithChildren<{
   onSubmit: (data: unknown) => Promise<FormSubmitResponse>;
-  schema: ZodSchema;
+  validatorName: ValidatorName;
   submitButtonLabel: string;
 }>;
 
 const FormWrapper = ({
   onSubmit,
-  schema,
+  validatorName,
   children,
   submitButtonLabel,
 }: FormProps) => {
+  const validator = getFormValidator(validatorName);
   const {
     handleSubmit,
     register,
     formState: { errors, isSubmitting },
     setError,
   } = useForm({
-    resolver: zodResolver(schema),
+    resolver: zodResolver(validator),
   });
 
   const onSubmitHandler = async (values: FieldValues): Promise<void> => {
