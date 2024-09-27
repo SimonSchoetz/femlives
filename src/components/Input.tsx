@@ -1,6 +1,9 @@
+'use client';
+
 import { DetailedHTMLProps, InputHTMLAttributes } from 'react';
 import ConditionWrapper from './ConditionWrapper';
 import { FCProps } from '@/types/app';
+
 
 type InputProps = DetailedHTMLProps<
   InputHTMLAttributes<HTMLInputElement>,
