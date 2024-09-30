@@ -7,9 +7,9 @@ jobs:
   lint-and-test:
     runs-on: ubuntu-latest
     env:
-      CONVEX_DEPLOYMENT: 'test'
-      NEXT_PUBLIC_CONVEX_URL: 'test'
-      RESEND_API_KEY: 'test'
+      CONVEX_DEPLOYMENT: '${{ secrets.CONVEX_DEPLOYMENT }}'
+      NEXT_PUBLIC_CONVEX_URL: '${{ secrets.NEXT_PUBLIC_CONVEX_URL }}'
+      RESEND_API_KEY: '${{ secrets.RESEND_API_KEY }}'
 
     steps:
       # Checkout the repository
