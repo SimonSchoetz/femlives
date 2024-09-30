@@ -7,6 +7,7 @@
       { "varsIgnorePattern": "^_", "argsIgnorePattern": "^_" }
     ],
     "quotes": ["error", "single", { "allowTemplateLiterals": true }],
-    "react-hooks/exhaustive-deps": "off"
+    "react-hooks/exhaustive-deps": "off",
+    "no-restricted-imports": ["error", ".."]
   }
 }
