@@ -6,10 +6,6 @@ on:
 jobs:
   lint-and-test:
     runs-on: ubuntu-latest
-    env:
-      CONVEX_DEPLOYMENT: '${{ vars.CONVEX_DEPLOYMENT }}'
-      NEXT_PUBLIC_CONVEX_URL: '${{ vars.NEXT_PUBLIC_CONVEX_URL }}'
-      RESEND_API_KEY: '${{ vars.RESEND_API_KEY }}'
 
     steps:
       # Checkout the repository
