@@ -26,6 +26,7 @@ export default [
       'custom-rules/sort-enums': 'error',
       quotes: ['error', 'single', { allowTemplateLiterals: true }],
       'no-process-env': 'error',
+      'no-restricted-imports': ['error', '..'],
     },
   },
 ];
