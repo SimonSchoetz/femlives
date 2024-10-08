@@ -25,19 +25,19 @@ We have 2 lint checks enforced by hooks
 
 ### Version control workflow
 
-Following the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) guidelines, we prefix our commits with e.g. `feat`, `fix`, ect. Additionally, we tie the ticket id of the task to the name following the pattern `<type>[optional scope]: <ticket-id> <description>`. With the current usage of Jira, a commit message could look like this:
+Following the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) guidelines, we prefix our commits with e.g. `feat`, `fix`, ect. Additionally, we tie the ticket id of the task to the name following the pattern `<type>[optional scope]: <issue-id> <description>`. The issue id corresponds to the issue on github. So a commit message could look like this:
 
 ```text
-feat: FL-2 set up github
+feat: #31 set up github
 ```
 
-The commit messages will be automatically prefixed based on the branch name by using the pattern `<type>[optional scope]/<ticket-id>/<description>`, i. e.:
+The commit messages will be automatically prefixed based on the branch name by using the pattern `<type>[optional scope]/<issue-id>/<description>`, i. e.:
 
 ```text
-feat/FL-10/automatic-commit-msg-prefix
+feat/#31/automatic-commit-msg-prefix
 ```
 
-You can also create branches the classic way without the `ticket-id`. In this case, only the `type` will be prefixed.
+You can also create branches the classic way without the `issue-id`. In this case, only the `type` will be prefixed.
 
 ### Code Formatting
 
