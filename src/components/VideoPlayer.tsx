@@ -1,6 +1,7 @@
+'use client';
 import React from 'react';
-import Plyr, { APITypes, PlyrProps } from 'plyr-react';
-import 'plyr-react/plyr.css'; // Import Plyr styles
+import Plyr, { PlyrProps } from 'plyr-react';
+import 'plyr-react/plyr.css';
 
 interface VideoPlayerProps {
   srcUrl: string;
